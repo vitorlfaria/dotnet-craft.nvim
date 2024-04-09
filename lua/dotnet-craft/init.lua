@@ -9,6 +9,8 @@ Line = math.floor(((vim.o.lines - Height) / 2) - 1)
 Col = math.floor((vim.o.columns - Width) / 2)
 Borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
 
+UserSelections = {}
+
 local dotnet_craft = {}
 
 local function create_folder_tree()
