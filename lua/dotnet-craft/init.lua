@@ -3,12 +3,6 @@ local popup = require("dotnet-craft.popup")
 local utils = require("dotnet-craft.utils")
 local callbacks = require("dotnet-craft.callbacks")
 
-Height = math.floor(vim.o.lines / 2)
-Width = math.floor(vim.o.columns / 2)
-Line = math.floor(((vim.o.lines - Height) / 2) - 1)
-Col = math.floor((vim.o.columns - Width) / 2)
-Borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-
 local dotnet_craft = {}
 
 local function open_folder_explorer_popup()
