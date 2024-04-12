@@ -1,6 +1,6 @@
-local utils = {}
+local M = {}
 
-function utils.get_index(t, value)
+function M.get_index(t, value)
     for k, v in pairs(t) do
         if v == value then
             return k
@@ -9,7 +9,7 @@ function utils.get_index(t, value)
     return nil
 end
 
-function utils.split(str, sep)
+function M.split(str, sep)
     local result = {}
     for token in string.gmatch(str, "([^" .. sep .. "]+)") do
         table.insert(result, token)
@@ -17,7 +17,7 @@ function utils.split(str, sep)
     return result
 end
 
-function utils.disable_insert_mode_for_buffer(bufnr)
+function M.disable_insert_mode_for_buffer(bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "q", ":lua ClosePopup()<CR>", { silent = false })
     vim.api.nvim_buf_set_keymap(bufnr, "n", "o", "<nop>", { silent = false })
     vim.api.nvim_buf_set_keymap(bufnr, "n", "O", "<nop>", { silent = false })
@@ -27,4 +27,15 @@ function utils.disable_insert_mode_for_buffer(bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "A", "<nop>", { silent = false })
 end
 
-return utils
+function M.scandir(dir)
+    local p = io.popen('find "' .. dir .. '" -type d')
+    local dirs = {}
+    for line in p:lines() do
+        if not string.match(line, "/%..*") then
+            table.insert(dirs, line)
+        end
+    end
+    return dirs
+end
+
+return M
