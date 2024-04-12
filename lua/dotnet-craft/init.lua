@@ -5,6 +5,8 @@ local callbacks = require("dotnet-craft.callbacks")
 
 local dotnet_craft = {}
 
+UserSelections = {}
+
 local function open_folder_explorer_popup()
     local layout = tree.create_folder_tree()
 
@@ -16,9 +18,7 @@ local function open_folder_explorer_popup()
 		minheight = Height,
 		borderchars = Borderchars,
 		padding = { 0, 0, 0, 2 },
-		callback = function(_, selected)
-			local selected_folder = callbacks.select_folder(selected)
-		end,
+		callback = callbacks.select_folder,
 	})
 
 	local bufnr = vim.api.nvim_win_get_buf(Win_id)

@@ -1,10 +1,7 @@
-local utils = require("dotnet-craft.utils")
-
 local M = {}
 
-function M.select_folder(selected)
-    print("folder: " .. selected.name)
-    print("path: " .. selected.path)
+function M.select_folder(_, selected)
+    UserSelections["selected_folder"] = selected.path
 end
 
 return M
