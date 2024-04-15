@@ -4,8 +4,8 @@ local utils = require("plenary.popup.utils")
 
 local if_nil = vim.F.if_nil
 
-Height = math.floor(vim.o.lines / 2)
-Width = math.floor(vim.o.columns / 2)
+Height = 10
+Width = 60
 Line = math.floor(((vim.o.lines - Height) / 2) - 1)
 Col = math.floor((vim.o.columns - Width) / 2)
 Borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }

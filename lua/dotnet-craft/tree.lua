@@ -42,16 +42,16 @@ function M.create_folder_tree()
 	return tree
 end
 
-function M.create_tree_layout()
-	local tree = M.create_folder_tree()
-	local tree_layout = {}
-
-	for _, item in ipairs(tree) do
-		local indent = string.rep(" ", item.level)
-		table.insert(tree_layout, indent .. item.icon .. item.name)
-	end
-
-	return tree_layout
+function M.create_template_tree()
+    local templates_tree = {
+        "Class",
+        "Sealed Class",
+        "Abstract Class",
+        "Static Class",
+        "Interface",
+        "Record",
+    }
+    return templates_tree
 end
 
 return M
