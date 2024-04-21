@@ -417,6 +417,11 @@ function popup.create(what, vim_options)
 		end
 	end
 
+    -- insert mode
+    if vim_options.insert then
+        vim.api.nvim_feedkeys("i", "n", false)
+    end
+
 	-- callback
 	if vim_options.callback then
 		popup._callbacks[bufnr] = function()
@@ -428,12 +433,42 @@ function popup.create(what, vim_options)
 		end
 		vim.api.nvim_buf_set_keymap(
 			bufnr,
-			"n",
+            "n",
+			"<CR>",
+			'<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ")<CR>",
+			{ noremap = true }
+		)
+		vim.api.nvim_buf_set_keymap(
+			bufnr,
+            "i",
 			"<CR>",
 			'<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ")<CR>",
 			{ noremap = true }
 		)
 	end
+
+    -- get_typed_value_callback
+    if vim_options.typed_value_callback then
+        popup._callbacks[bufnr] = function()
+            local value = vim.api.nvim_get_current_line()
+            vim_options.typed_value_callback(value)
+            vim.api.nvim_win_close(win_id, true)
+        end
+        vim.api.nvim_buf_set_keymap(
+            bufnr,
+            "n",
+            "<CR>",
+            '<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ")<CR>",
+            { noremap = true }
+        )
+        vim.api.nvim_buf_set_keymap(
+            bufnr,
+            "i",
+            "<CR>",
+            '<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ")<CR>",
+            { noremap = true }
+        )
+    end
 
 	if vim_options.finalize_callback then
 		vim_options.finalize_callback(win_id, bufnr)

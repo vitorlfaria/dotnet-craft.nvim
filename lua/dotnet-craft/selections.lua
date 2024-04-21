@@ -17,7 +17,7 @@ function M.open_folder_selection_popup()
 		borderchars = Borderchars,
 		padding = { 0, 0, 0, 2 },
 		callback = function(_, selected)
-            callbacks.select_folder(_, selected)
+            callbacks.select_folder(selected)
             M.open_template_selection_popup()
         end,
 	})
@@ -37,8 +37,8 @@ function M.open_template_selection_popup()
         minheight = Height,
         borderchars = Borderchars,
         padding = { 0, 0, 0, 2 },
-        callback = function()
-            callbacks.select_template()
+        callback = function(_, selected)
+            callbacks.select_template(selected)
             M.open_name_selection_popup()
         end
     })
@@ -51,17 +51,17 @@ function M.open_name_selection_popup()
     -- create popup with input field to get the name
     Win_id = popup.create("", {
         title = "Enter Name",
+        insert = true,
         line = Line,
         col = Col,
         minwidth = Width,
-        minheight = Height,
+        height = Height,
         borderchars = Borderchars,
         padding = { 0, 0, 0, 2 },
-        callback = callbacks.select_name,
+        typed_value_callback = function(value)
+            callbacks.select_name(value)
+        end
     })
-
-    local bufnr = vim.api.nvim_win_get_buf(Win_id)
-    utils.enable_insert_mode_for_buffer(bufnr)
 end
 
 return M
