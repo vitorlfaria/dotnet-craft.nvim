@@ -447,7 +447,7 @@ function popup.create(what, vim_options)
 		)
 	end
 
-    -- get_typed_value_callback
+    -- typed_value_callback
     if vim_options.typed_value_callback then
         popup._callbacks[bufnr] = function()
             local value = vim.api.nvim_get_current_line()

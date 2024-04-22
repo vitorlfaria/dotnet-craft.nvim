@@ -1,6 +1,7 @@
 local tree = require("dotnet-craft.tree")
 local popup = require("dotnet-craft.popup")
 local utils = require("dotnet-craft.utils")
+local crafter = require("dotnet-craft.crafter")
 local callbacks = require("dotnet-craft.callbacks")
 
 local M = {}
@@ -48,7 +49,6 @@ function M.open_template_selection_popup()
 end
 
 function M.open_name_selection_popup()
-    -- create popup with input field to get the name
     Win_id = popup.create("", {
         title = "Enter Name",
         insert = true,
@@ -60,6 +60,7 @@ function M.open_name_selection_popup()
         padding = { 0, 0, 0, 2 },
         typed_value_callback = function(value)
             callbacks.select_name(value)
+            crafter.craft_item()
         end
     })
 end

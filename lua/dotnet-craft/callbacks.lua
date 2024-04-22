@@ -9,11 +9,7 @@ function M.select_template(selected)
 end
 
 function M.select_name(value)
-    UserSelections["selected_name"] = value
-    print("Selected values")
-    print("Folder: " .. UserSelections["selected_folder"])
-    print("Template: " .. UserSelections["selected_template"])
-    print("Name: " .. UserSelections["selected_name"])
+    UserSelections["selected_name"] = value:gsub("^%s*(.-)%s*$", "%1")
 end
 
 return M

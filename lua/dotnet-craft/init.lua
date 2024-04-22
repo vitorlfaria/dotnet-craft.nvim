@@ -1,5 +1,4 @@
 local selections = require("dotnet-craft.selections")
-
 local dotnet_craft = {}
 
 UserSelections = {}

@@ -1,9 +1,9 @@
 local M = {}
 
-M.Class = [[
-namespace {{namespace}}
+M["Class"] = [[
+namespace {{namespace}};
 
-public class {{class_name}}
+public class {{name}}
 {
 }
 ]]

@@ -1,4 +1,5 @@
 local utils = require("dotnet-craft.utils")
+local templates = require("dotnet-craft.templates")
 
 local M = {}
 
@@ -43,14 +44,12 @@ function M.create_folder_tree()
 end
 
 function M.create_template_tree()
-    local templates_tree = {
-        "Class",
-        "Sealed Class",
-        "Abstract Class",
-        "Static Class",
-        "Interface",
-        "Record",
-    }
+    local templates_tree = {}
+
+    for template, _ in pairs(templates) do
+        table.insert(templates_tree, template)
+    end
+
     return templates_tree
 end
 
