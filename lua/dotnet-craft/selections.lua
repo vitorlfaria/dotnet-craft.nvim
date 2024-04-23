@@ -1,7 +1,6 @@
 local tree = require("dotnet-craft.tree")
 local popup = require("dotnet-craft.popup")
 local utils = require("dotnet-craft.utils")
-local crafter = require("dotnet-craft.crafter")
 local callbacks = require("dotnet-craft.callbacks")
 
 local M = {}
@@ -15,6 +14,7 @@ function M.open_folder_selection_popup()
 		col = Col,
 		minwidth = Width,
 		minheight = Height,
+        maxheight = MaxHeight,
 		borderchars = Borderchars,
 		padding = { 0, 0, 0, 2 },
 		callback = function(_, selected)
@@ -36,6 +36,7 @@ function M.open_template_selection_popup()
         col = Col,
         minwidth = Width,
         minheight = Height,
+        maxheight = MaxHeight,
         borderchars = Borderchars,
         padding = { 0, 0, 0, 2 },
         callback = function(_, selected)
