@@ -60,7 +60,6 @@ function M.open_name_selection_popup()
         padding = { 0, 0, 0, 2 },
         typed_value_callback = function(value)
             callbacks.select_name(value)
-            crafter.craft_item()
         end
     })
 end

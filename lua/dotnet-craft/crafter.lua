@@ -30,6 +30,11 @@ local function get_namespace()
     return namespace
 end
 
+local function open_file(location)
+    vim.cmd("stopinsert")
+    vim.cmd("edit " .. location)
+end
+
 function Crafter.craft_item()
     local namespace = get_namespace()
     local template = templates[UserSelections["selected_template"]]
@@ -37,6 +42,7 @@ function Crafter.craft_item()
     content = string.gsub(content, "{{namespace}}", namespace)
     local location = UserSelections["selected_folder"] .. "/" .. UserSelections["selected_name"] .. ".cs"
     write_file(location, content)
+    open_file(location)
 end
 
 return Crafter

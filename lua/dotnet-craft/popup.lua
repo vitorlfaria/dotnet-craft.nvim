@@ -458,14 +458,14 @@ function popup.create(what, vim_options)
             bufnr,
             "n",
             "<CR>",
-            '<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ")<CR>",
+            '<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ", true" .. ")<CR>",
             { noremap = true }
         )
         vim.api.nvim_buf_set_keymap(
             bufnr,
             "i",
             "<CR>",
-            '<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ")<CR>",
+            '<cmd>lua require"dotnet-craft.popup".execute_callback(' .. bufnr .. ", true" .. ")<CR>",
             { noremap = true }
         )
     end
@@ -520,11 +520,16 @@ function popup.move(win_id, vim_options)
 	end
 end
 
-function popup.execute_callback(bufnr)
+function popup.execute_callback(bufnr, call_craft)
 	if popup._callbacks[bufnr] then
 		local wrapper = popup._callbacks[bufnr]
 		wrapper()
 		popup._callbacks[bufnr] = nil
+
+        call_craft = call_craft or false
+        if call_craft then
+            require("dotnet-craft.crafter").craft_item()
+        end
 	end
 end
 
