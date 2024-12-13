@@ -11,6 +11,9 @@ function M.create_folder_tree()
 	local split = vim.fn.split(cwd, "/")
 	local current_folder = split[#split]
 	for _, path in ipairs(paths) do
+        if string.match(path, "bin") or string.match(path, "obj") then
+            goto continue
+        end
 		local path_split = utils.split(path, "/")
 		local base_folder_index = utils.get_index(path_split, current_folder)
 
@@ -38,6 +41,7 @@ function M.create_folder_tree()
 				table.insert(tree, node)
 			end
 		end
+        ::continue::
 	end
 
 	return tree
