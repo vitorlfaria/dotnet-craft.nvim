@@ -178,10 +178,6 @@ The plugin includes these templates:
 - **Struct** - Struct type
 - **Api Controller** - ASP.NET API controller
 - **Minimal Api Controller** - Minimal API controller with GET endpoint
-- **Service** - Service class
-- **Service Interface** - Service interface (with I prefix)
-- **Repository** - Repository class
-- **Repository Interface** - Repository interface (with I prefix)
 - **Exception** - Custom exception class
 - **Test Class** - xUnit test class
 
