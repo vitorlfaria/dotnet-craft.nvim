@@ -1,26 +1,17 @@
 local utils = require("dotnet-craft.utils")
-local templates = require("dotnet-craft.templates")
+local config = require("dotnet-craft.config")
 
 local M = {}
 
-local EXCLUDED_DIRS = {
-	"bin",
-	"obj",
-	"node_modules",
-	".git",
-	".vs",
-	".vscode",
-	"packages",
-	"TestResults",
-}
-
 local function should_exclude_path(path)
+	local excluded_dirs = config.get_excluded_dirs()
+
 	local normalized_path = path:gsub("\\", "/")
 
 	local path_segments = utils.split(normalized_path, "/")
 
 	for _, segment in ipairs(path_segments) do
-		for _, excluded in ipairs(EXCLUDED_DIRS) do
+		for _, excluded in ipairs(excluded_dirs) do
 			if segment == excluded then
 				return true
 			end
@@ -49,6 +40,11 @@ function M.create_folder_tree()
 		if base_folder_index then
 			for i = base_folder_index + 1, #path_split do
 				local item = path_split[i]
+
+				if not item or item == "" then
+					goto continue_inner
+				end
+
 				local parent = path_split[i - 1]
 				local indent_level = i - base_folder_index - 1
 				local icon = " "
@@ -76,6 +72,8 @@ function M.create_folder_tree()
 				if not found then
 					table.insert(tree, node)
 				end
+
+				::continue_inner::
 			end
 		end
 
@@ -86,6 +84,7 @@ function M.create_folder_tree()
 end
 
 function M.create_template_tree()
+	local templates = config.get_all_templates()
 	local templates_tree = {}
 
 	for template_name, _ in pairs(templates) do

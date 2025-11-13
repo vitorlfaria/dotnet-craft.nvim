@@ -3,12 +3,13 @@ local popup = require("dotnet-craft.popup")
 local utils = require("dotnet-craft.utils")
 local callbacks = require("dotnet-craft.callbacks")
 local state = require("dotnet-craft.state")
+local config = require("dotnet-craft.config")
 
 local M = {}
 
 function M.open_folder_selection_popup()
 	local layout = tree.create_folder_tree()
-	local ui_config = state.get_ui_config()
+	local ui_config = config.get_ui_config()
 
 	local win_id = popup.create(layout, {
 		title = "Select Folder",
@@ -33,7 +34,7 @@ end
 
 function M.open_template_selection_popup()
 	local layout = tree.create_template_tree()
-	local ui_config = state.get_ui_config()
+	local ui_config = config.get_ui_config()
 
 	local win_id = popup.create(layout, {
 		title = "Select Template",
@@ -57,7 +58,7 @@ function M.open_template_selection_popup()
 end
 
 function M.open_name_selection_popup()
-	local ui_config = state.get_ui_config()
+	local ui_config = config.get_ui_config()
 
 	local win_id = popup.create("", {
 		title = "Enter Name",

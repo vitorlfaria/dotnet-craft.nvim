@@ -8,20 +8,8 @@ local state = {
 	},
 	ui = {
 		current_win_id = nil,
-		height = nil,
-		max_height = nil,
-		width = 60,
-		line = 5,
-		col = nil,
-		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 	},
 }
-
-local function init_ui_dimensions()
-	state.ui.height = math.floor(vim.o.lines * 0.2)
-	state.ui.max_height = math.floor(vim.o.lines * 0.6)
-	state.ui.col = math.floor((vim.o.columns - state.ui.width) / 2)
-end
 
 function M.init()
 	state.selections = {
@@ -30,7 +18,6 @@ function M.init()
 		selected_name = nil,
 	}
 	state.ui.current_win_id = nil
-	init_ui_dimensions()
 end
 
 function M.set_folder(folder_path)
@@ -74,17 +61,6 @@ function M.close_current_win()
 		vim.api.nvim_win_close(state.ui.current_win_id, true)
 		state.ui.current_win_id = nil
 	end
-end
-
-function M.get_ui_config()
-	return {
-		height = state.ui.height,
-		max_height = state.ui.max_height,
-		width = state.ui.width,
-		line = state.ui.line,
-		col = state.ui.col,
-		borderchars = state.ui.borderchars,
-	}
 end
 
 function M.is_complete()
