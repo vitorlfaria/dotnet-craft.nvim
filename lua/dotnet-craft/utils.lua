@@ -20,10 +20,8 @@ function M.split(str, sep)
 end
 
 function M.disable_insert_mode_for_buffer(bufnr)
-	-- Set up keymaps for the buffer
 	local opts = { silent = true, noremap = true }
 
-	-- Close popup with 'q'
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "", {
 		silent = true,
 		noremap = true,
@@ -32,7 +30,6 @@ function M.disable_insert_mode_for_buffer(bufnr)
 		end,
 	})
 
-	-- Disable insert mode keys
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "o", "<nop>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "O", "<nop>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "i", "<nop>", opts)
@@ -42,13 +39,56 @@ function M.disable_insert_mode_for_buffer(bufnr)
 end
 
 function M.scandir(dir)
-	local p = io.popen('find "' .. dir .. '" -type d')
 	local dirs = {}
-	for line in p:lines() do
-		if not string.match(line, "/%..*") then
-			table.insert(dirs, line)
+
+	local paths = vim.fn.glob(dir .. "/**", false, true)
+
+	table.insert(dirs, dir)
+
+	for _, path in ipairs(paths) do
+		if vim.fn.isdirectory(path) == 1 then
+			local basename = vim.fn.fnamemodify(path, ":t")
+			if not basename:match("^%.") then
+				table.insert(dirs, path)
+			end
 		end
 	end
+
+	return dirs
+end
+
+function M.scandir_recursive(dir, max_depth)
+	max_depth = max_depth or 10
+	local dirs = {}
+
+	local function scan(path, depth)
+		if depth > max_depth then
+			return
+		end
+
+		local handle = vim.loop.fs_scandir(path)
+		if not handle then
+			return
+		end
+
+		while true do
+			local name, type = vim.loop.fs_scandir_next(handle)
+			if not name then
+				break
+			end
+
+			-- Skip hidden files/directories
+			if not name:match("^%.") and type == "directory" then
+				local full_path = path .. "/" .. name
+				table.insert(dirs, full_path)
+				scan(full_path, depth + 1)
+			end
+		end
+	end
+
+	table.insert(dirs, dir)
+	scan(dir, 1)
+
 	return dirs
 end
 

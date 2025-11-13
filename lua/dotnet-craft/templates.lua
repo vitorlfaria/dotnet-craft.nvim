@@ -1,7 +1,11 @@
+-- lua/dotnet-craft/templates.lua
 local M = {}
 
+-- Note: {{namespace}} will be just the namespace name (e.g., "MyApp.Models")
+-- We add the "namespace" keyword and semicolon in the template
+
 M["Class"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public class {{name}}
 {
@@ -9,7 +13,7 @@ public class {{name}}
 ]]
 
 M["Sealed Class"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public sealed class {{name}}
 {
@@ -17,7 +21,7 @@ public sealed class {{name}}
 ]]
 
 M["Static Class"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public static class {{name}}
 {
@@ -25,7 +29,7 @@ public static class {{name}}
 ]]
 
 M["Interface"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public interface {{name}}
 {
@@ -33,7 +37,7 @@ public interface {{name}}
 ]]
 
 M["Record"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public record {{name}}
 {
@@ -41,7 +45,7 @@ public record {{name}}
 ]]
 
 M["Sealed Record"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public sealed record {{name}}
 {
@@ -49,7 +53,7 @@ public sealed record {{name}}
 ]]
 
 M["Enum"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public enum {{name}}
 {
@@ -57,7 +61,7 @@ public enum {{name}}
 ]]
 
 M["Struct"] = [[
-{{namespace}};
+namespace {{namespace}};
 
 public struct {{name}}
 {
@@ -67,7 +71,7 @@ public struct {{name}}
 M["Api Controller"] = [[
 using Microsoft.AspNetCore.Mvc;
 
-{{namespace}};
+namespace {{namespace}};
 
 [ApiController]
 [Route("[controller]")]
