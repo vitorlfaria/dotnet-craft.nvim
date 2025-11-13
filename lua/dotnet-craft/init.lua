@@ -1,15 +1,10 @@
 local selections = require("dotnet-craft.selections")
+local state = require("dotnet-craft.state")
+
 local dotnet_craft = {}
 
-UserSelections = {}
-
-Win_id = 0
-
-function ClosePopup()
-	vim.api.nvim_win_close(Win_id, true)
-end
-
 function dotnet_craft.craft()
+	state.init()
 	selections.open_folder_selection_popup()
 end
 
